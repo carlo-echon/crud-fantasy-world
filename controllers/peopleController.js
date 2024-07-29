@@ -78,3 +78,15 @@ export const getOneCharacter = async(req, res) => {
         console.error(err.message)
     }
 };
+
+//Get Character Locations 
+
+export const getCharacterLocations = async(req, res) => {
+    try{
+        const { id } = req.params;
+        const getCharacterLocations = await pool.query("SELECT * from character_locations WHERE characterid = $1", [id]);
+        res.json(getCharacterLocations.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+};
