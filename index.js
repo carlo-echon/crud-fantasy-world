@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import userRoutes from './routes/user.js'
 import characterRoutes from './routes/people.js'
 import magicItemRoutes from './routes/magicitems.js'
@@ -7,9 +8,14 @@ import locationRoutes from './routes/locations.js'
 
 const app = express();
 
+app.use(cors({
+  origin: 'http://localhost:3000' // Update with your frontend URL
+}));
+
 const port = 4000
 
 app.use(express.json());
+
 // Routes
 app.use('/users', userRoutes);
 app.use('/characters', characterRoutes);

@@ -1,36 +1,36 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255)
+    userName VARCHAR(255)
 );
 
 CREATE TABLE people (
     characterid SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    species VARCHAR(255),
-    alignment VARCHAR(255),
-    standing VARCHAR(255),
-    goals VARCHAR(255)
+    characterName VARCHAR(255),
+    characterSpecies VARCHAR(255),
+    characterAlignment VARCHAR(255),
+    characterStanding VARCHAR(255),
+    characterGoals VARCHAR(255)
 );
 
 CREATE TABLE magicitems (
     magicitemid SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    type VARCHAR(255),
-    description VARCHAR(255)
+    magicitemName VARCHAR(255),
+    magicitemType VARCHAR(255),
+    magicitemDescription VARCHAR(255)
 );
 
 CREATE TABLE locations (
     locationsid SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    climate VARCHAR(255),
-    description VARCHAR(255)
+    locationsName VARCHAR(255),
+    locationsClimate VARCHAR(255),
+    locationsDescription VARCHAR(255)
 );
 
 create TABLE history (
     historyid SERIAL PRIMARY KEY,
-    date VARCHAR(255),
-    event VARCHAR(255),
-    description TEXT
+    historyDate VARCHAR(255),
+    historyEvent VARCHAR(255),
+    historyDescription TEXT
 );
 
 CREATE TABLE character_locations (

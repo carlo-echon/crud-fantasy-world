@@ -4,14 +4,15 @@ import pool from "../database.js";
 
 export const postHistoryEntry = async(req, res) => {
     try {
-        const { date, event, description } = req.body;
-        if (!event) {
+        const { historyDate, historyEvent, historyDescription } = req.body;
+        if (!historyEvent) {
             return res.status(400).json({ error: 'Event is required' });
         }
         const newHistoryEvent = await pool.query(
-            "INSERT INTO history (date, event, description) VALUES($1, $2, $3) returning *", 
-            [date, event, description]
+            "INSERT INTO history (historyDate, historyEvent, historyDescription) VALUES($1, $2, $3) returning *", 
+            [historyDate, historyEvent, historyDescription]
         );
+        console.log("data posted")
         res.json(newHistoryEvent.rows[0]);
     } catch (err) {
         console.error(err.message)
@@ -23,6 +24,7 @@ export const postHistoryEntry = async(req, res) => {
 export const getHistory = async(req,res) => {
     try {
         const allHistory =  await pool.query("SELECT * FROM history");
+        console.log("data fetched")
         res.json(allHistory.rows);
         
     } catch (err) {
@@ -48,12 +50,12 @@ export const deleteOneHistoryEntry = async(req,res) => {
 export const updateOneHistoryEntry = async(req, res) => {
     try{
         const { id } = req.params;
-        const { date, event, description } = req.body;
+        const { historyDate, historyEvent, historyDescription } = req.body;
 
-        const updatedHistoryEntry = await pool.query(`UPDATE history SET date = COALESCE($1, date),
-                                                               event = COALESCE($2, event),
-                                                               description = COALESCE($3, description)
-                                                               WHERE historyid = $4 returning *`, [date, event, description, id])
+        const updatedHistoryEntry = await pool.query(`UPDATE history SET historyDate = COALESCE($1, historyDate),
+                                                                         historyEvent = COALESCE($2, historyEvent),
+                                                                         historyDescription = COALESCE($3, historyDescription)
+                                                                         WHERE historyid = $4 returning *`, [historyDate, historyEvent, historyDescription, id])
         
         res.json(updatedHistoryEntry.rows[0]);
     } catch  (err) {
@@ -71,7 +73,7 @@ export const getOneHistoryEntry = async(req, res) => {
         if (getHistoryEntry.rows.length === 0) {
             return res.status(404).json({ error: "History Entry not found" });
         }
-
+        console.log("We got 1")
         res.json(getHistoryEntry.rows[0]);
     } catch (err) {
         console.error(err.message)
